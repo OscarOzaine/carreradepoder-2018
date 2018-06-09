@@ -1,0 +1,22 @@
+0x6a9f9248ea9b8ac781e810acd27d5ea930a2f773
+
+
+
+
+contract=0xdA31FBdF5348D9fc42ddC4CC502DF74a032b8831
+
+
+Running migration: 1_initial_migration.js
+  Deploying Migrations...
+  ... 0x63bfc6fd20cb76282d1abc60d1c56e99b9113bb8a316427098d89390c3fa1087
+  Migrations: 0xda31fbdf5348d9fc42ddc4cc502df74a032b8831
+Saving successful migration to network...
+  ... 0x6d7dfa7a6c151cde9bf2042d7a06014857c6479bcbc149a87b6d44b790247863
+Saving artifacts...
+Running migration: 2_deploy_contracts.js
+  Deploying Poll...
+  ... 0xa1eaa1a48cb20de4a7853f84a41e55ff3f2fcdd685b9c4daed821603bcc0e7fc
+  Poll: 0x5e4d348590fdd9302e0fb07a8ad3d60e5bd37a8a
+Saving successful migration to network...
+  ... 0x074b2d4251ffe4e284ea952434060cafbf5016900e2526e6284449662b5ecc2c
+Saving artifacts...

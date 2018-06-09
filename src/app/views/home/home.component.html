@@ -1,0 +1,427 @@
+<style>
+.candidate-card {}
+@media only screen and (max-width: 720px) {
+  .candidate-card {
+    margin-left: 9%;
+    margin-bottom: 0.6em;
+  }
+}
+.newline {
+  white-space: pre-line
+}
+</style>
+
+<div mdbModal #loginAvatarForm="mdb-modal" class="modal fade" id="modalVote" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-avatar modal-md" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <img 
+          src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" 
+          class="rounded-circle img-responsive modal-image"
+          #imgCandidate
+          >
+      </div>
+
+      <div class="modal-body text-center mb-1">
+
+        <h5 class="mt-1 mb-2">
+          Confirmar Voto
+        </h5>
+
+        <div class="md-form ml-0 mr-0">
+          <input mdbInputDirective type="text" type="text" id="nombre" class="form-control ml-0" #voterName>
+          <label for="nombre" class="ml-0">
+            Nombre
+          </label>
+        </div>
+
+        <input type="hidden" value="" #candidateId/>
+
+        <div class="text-center">
+          <button class="btn btn-success mt-1 waves-light vote-button" (click)="voteCandidate(voterName);" mdbWavesEffect>
+            Votar
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div mdbModal #descriptionForm="mdb-modal" class="modal fade" id="modalDescription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-avatar modal-md" role="document">
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Header-->
+      <div class="modal-header">
+        
+        <br />
+        <br />
+        <br />
+        <br />
+
+      </div>
+
+      <div class="modal-body text-center mb-1">
+        <div [innerHTML]="text">
+          <h5 class="mt-1 mb-2">Mas Informacion</h5>
+        </div>
+        
+
+        <div class="text-center">
+
+          <p>
+            Para poder votar se necesita descargar el plug-in de MetaMask: 
+            <br />  
+            <a href="https://metamask.io">https://metamask.io</a> 
+            <br /> 
+            Obtener recursos mediante la pagina <a href="https://faucet.rinkeby.io/">faucet.rinkeby.io</a> 
+          </p> 
+
+          <p>
+            Obtener recursos por medio de Twitter, publica un tweet con tu direccion de Ethereum. Copia y pega el URL del tweet en la pagina mencionada
+            <br /> <br /> 
+            Obtener recursos por medio de Google Plus, publica un post con tu direccion de Ethereum. Copia y pega el URL del Post en la pagina mencionada
+            <br /> <br /> 
+            Obtener recursos por medio de Facebook, publica un post con tu direccion de Ethereum. Copia y pega el URL del post en la pagina mencionada
+            <br /> <br />
+          </p>
+
+          <p>
+            Al momento de escribir tu nombre y votar por tu candidato, confirma tu transaccion en el plugin para que se pueda registrar el voto.
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-xs-12 col-sm-8 pull-left">
+    <div class="divider-new mt-0 mb-4 py-3">
+      <h2 class="h3-responsive">
+          <strong>
+            Votos
+          </strong>
+      </h2>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-4 pull-right">
+    <button type="button" class="btn btn-primary waves-light pull-right" data-toggle="modal" (click)="descriptionForm.show();" mdbWavesEffect v>
+      Como Votar
+    </button>
+  </div>
+</div>
+
+<div class="row">
+
+    <div class="col-10 col-md-3 candidate-card">
+
+        <div class="card card-cascade cascading-admin-card">
+
+            <div class="admin-up">
+                
+                <div class="data">
+                    <h2 style="text-align: center;">
+                      <strong>
+                        {{ votesPerProposal && votesPerProposal[0] }}
+                      </strong>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="progress">
+                    <div id="progress-bar-1" class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" [ngStyle]="percentagePerProposalStyleOne">
+                    </div>
+                      
+                </div>
+
+                <p class="card-text"> 
+                  {{ percentagePerProposal && percentagePerProposal[0] }} %
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-10 col-md-3 candidate-card">
+
+        <div class="card card-cascade cascading-admin-card">
+
+            <div class="admin-up">
+                
+                <div class="data">
+                    <h2 style="text-align: center;">
+                      <strong>
+                        {{ votesPerProposal && votesPerProposal[1] }}
+                      </strong>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="progress">
+                    <div id="progress-bar-1" class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" [ngStyle]="percentagePerProposalStyleTwo">
+                    </div>
+                </div>
+
+                <p class="card-text">
+                  {{ percentagePerProposal && percentagePerProposal[1] }} %
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-10 col-md-3 candidate-card">
+
+        <div class="card card-cascade cascading-admin-card">
+
+            <div class="admin-up">
+                
+                <div class="data">
+                    <h2 style="text-align: center;">
+                      <strong>
+                        {{ votesPerProposal && votesPerProposal[2] }}
+                      </strong>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="progress">
+                    <div id="progress-bar-1" class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" [ngStyle]="percentagePerProposalStyleThree">
+                    </div>
+                </div>
+
+                <p class="card-text">
+                  {{ percentagePerProposal && percentagePerProposal[2] }} %
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-10 col-md-3 candidate-card">
+        <div class="card card-cascade cascading-admin-card">
+
+            <div class="admin-up">
+              
+              <div class="data">
+                <h2 style="text-align: center;">
+                  <strong>
+                    {{ votesPerProposal && votesPerProposal[3] }}
+                  </strong>
+                </h2>
+              </div>
+            </div>
+
+            <div class="card-body">
+                <div class="progress">
+                    <div id="progress-bar-1" class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" [ngStyle]="percentagePerProposalStyleFour">
+                    </div>
+                </div>
+                <p class="card-text">
+                  {{ percentagePerProposal && percentagePerProposal[3] }} %
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="divider-new mt-0 mb-4 py-3">
+  <h2 class="h3-responsive">
+      <strong>
+        Candidatos
+      </strong>
+  </h2>
+</div>
+
+<!-- 
+<button (click)="createContract();" type="button" class="btn btn-outline-primary btn-rounded btn-sm" mdbWavesEffect>
+  Create Contract
+</button>
+
+<button (click)="checkVoters();" type="button" class="btn btn-outline-primary btn-rounded btn-sm" mdbWavesEffect>
+  Check Voters
+</button> 
+-->
+
+<div class="row">
+  <div class="col-10 col-md-3 candidate-card" *ngFor="let candidate of candidates">
+    <!-- <div > -->
+      <div class="card card-cascade narrower">
+
+        <div class="view overlay hm-white-slight waves-light" mdbWavesEffect>
+          <center>
+            <img src="{{ candidate.image }}" class="img-fluid">
+            <a>
+              <div class="mask"></div>
+            </a>
+          </center>
+        </div>
+
+        <div class="card-body text-center">
+
+          <h4 class="card-title font-bold mb-2">
+              <strong>
+                {{ candidate.name }}
+              </strong>
+          </h4>
+
+          <h5 class="indigo-text">
+              <strong>
+                {{ candidate.party }}
+              </strong>
+          </h5>
+
+          <div class="text-center">
+            <button id="modal_button" type="button" class="btn btn-primary waves-light" data-toggle="modal" data-target="#centralFluid" (click)="loginAvatarForm.show(); voteClick(candidate.id, imgCandidate)" data-id="{{ candidate.id }}" mdbWavesEffect v>
+              Votar
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    <!-- </div> -->
+  </div>
+</div>
+
+<div class="divider-new mt-0 mb-4 py-3"></div>
+
+<div class="container">
+
+  <!--Section: Main info-->
+  <section class="mt-5 wow fadeIn">
+
+    <!--Grid row-->
+    <div class="row">
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <img src="/assets/Ethereum.png" class="img-fluid z-depth-1-half" alt="">
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <!-- Main heading -->
+        <h3 class="h3 mb-3">
+          Votaciones Descentralizadas
+        </h3>
+
+        <p>
+          En carreradepoder.com se presenta una implementacion simple de votaciones descentralizadas basadas en un contrato inteligente en el <strong>Blockchain de Ethereum</strong>
+        </p>
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+  </section>
+  <!--Section: Main info-->
+
+  <hr class="my-5">
+
+  <!--Section: Main features & Quick Start-->
+  <section>
+
+    <h3 class="h3 text-center mb-5">Como Funciona</h3>
+
+    <p class="grey-text">
+      Las votaciones se manejan por medio de un contrato inteligente en el blockchain de Ethereum, el contrato inteligente esta en una red de prueba(Rinkeby Test Net).
+      <br />
+      La direccion del contrato es: 
+      <br />
+
+    </p>
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-12 px-4">
+
+        <!--First row-->
+        <div class="row">
+
+          <div class="col-2 mr-3">
+            <!-- <i class="fa fa-code fa-2x indigo-text"></i> -->
+            <img src="/assets/ethereum-logo.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-9">
+            <h5 class="feature-title">
+              Ethereum
+            </h5>
+            <p class="grey-text">
+              Ethereum provee la infraestructura que facilita la confianza y la seguridad de las transacciones o votos. En este caso se implementa un contrato inteligente para el manejo de votos
+            </p>
+          </div>
+
+        </div>
+
+        <div style="height:30px"></div>
+
+      </div>
+
+      <div class="col-lg-6 col-md-12">
+        
+        <div class="row">
+
+          <div class="col-2 mr-3">
+            <!-- <i class="fa fa-book fa-2x blue-text"></i> -->
+            <img src="/assets/metamask.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-9">
+            
+            <h5 class="feature-title">
+              Metamask
+            </h5>
+
+            <p class="grey-text">
+              Metamask es una herramienta que permite interactuar con el Blockchain de Ethereum, necesario para la implementacion de carreradepoder.com
+            </p>
+
+          </div>
+
+        </div>
+
+        <div style="height:30px"></div>
+        
+      </div>
+      
+
+    </div>
+    
+
+  </section>
+  
+
+</div>

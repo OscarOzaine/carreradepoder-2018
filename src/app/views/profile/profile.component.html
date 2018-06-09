@@ -1,0 +1,64 @@
+<div class="card mb-4 wow fadeIn">
+  <div class="card-body d-sm-flex justify-content-between">
+    <h4 class="mb-sm-0">
+      <a href="/home">
+        Inicio
+      </a>
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+
+        <div class="card card-cascade narrower">
+
+          <div class="view overlay hm-white-slight waves-light" mdbWavesEffect>
+            <center>
+              <img src="{{ candidate.image }}" class="img-fluid">
+              <a>
+                <div class="mask"></div>
+              </a>
+            </center>
+          </div>
+
+          <div class="card-body text-center">
+
+            <h4 class="card-title font-bold mb-2">
+                <strong>{{ candidate.name }}</strong>
+            </h4>
+
+            <h5 class="indigo-text">
+                <strong>{{ candidate.party }}</strong>
+            </h5>
+
+            <h6 class='text-justify'>
+                <strong>About:</strong>
+            </h6>
+
+            <p class='text-justify'>
+                {{ candidate.name }}
+            </p>
+
+            <div class="text-right">
+              <button (click)="btnClick(candidate.id);" type="button" class="btn btn-outline-primary btn-rounded  btn-sm" mdbWavesEffect>
+                  More...
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-9">
+
+        <section class="section text-center pb-3">
+            <!-- <h2 class="section-heading h1 pt-4"><strong>Latest projects:</strong></h2> -->
+        </section>
+
+    </div>
+
+
+</div>
