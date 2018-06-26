@@ -44,6 +44,9 @@
           <button class="btn btn-success mt-1 waves-light vote-button" (click)="voteCandidate(voterName);" mdbWavesEffect>
             Votar
           </button>
+          <button class="btn btn-danger mt-1 waves-light" data-dismiss="modal" (click)="loginAvatarForm.hide()" mdbWavesEffect>
+            Cerrar
+          </button>
         </div>
       </div>
 
@@ -98,6 +101,12 @@
             Al momento de escribir tu nombre y votar por tu candidato, confirma tu transaccion en el plugin para que se pueda registrar el voto.
           </p>
 
+        </div>
+
+        <div class="text-center">
+          <button class="btn btn-danger mt-1 waves-light" data-dismiss="modal" (click)="descriptionForm.hide()" mdbWavesEffect>
+            Cerrar
+          </button>
         </div>
       </div>
 
@@ -163,7 +172,6 @@
         <div class="card card-cascade cascading-admin-card">
 
             <div class="admin-up">
-                
                 <div class="data">
                     <h2 style="text-align: center;">
                       <strong>
@@ -298,6 +306,7 @@
             <button id="modal_button" type="button" class="btn btn-primary waves-light" data-toggle="modal" data-target="#centralFluid" (click)="loginAvatarForm.show(); voteClick(candidate.id, imgCandidate)" data-id="{{ candidate.id }}" mdbWavesEffect v>
               Votar
             </button>
+
           </div>
 
         </div>
